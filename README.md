@@ -1,59 +1,74 @@
-<h1 align="center">Mappex — Gerador de Leads</h1>
+<h1 align="center">Mappex, Gerador de Leads</h1>
+
+<p align="center">SaaS de geração de leads B2B com CRM no WhatsApp.<br><sub><i>B2B lead-generation SaaS with a built-in WhatsApp CRM.</i></sub></p>
 
 <p align="center">
-  SaaS de geração de leads B2B com CRM integrado no WhatsApp.<br>
-  <sub><i>B2B lead-generation SaaS with a built-in WhatsApp CRM.</i></sub>
+  <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/react.svg" height="15" alt=""> React</kbd> <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/typescript.svg" height="15" alt=""> TypeScript</kbd> <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/tailwindcss.svg" height="15" alt=""> Tailwind CSS</kbd> <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/vite.svg" height="15" alt=""> Vite</kbd> <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/nestjs.svg" height="15" alt=""> NestJS</kbd> <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/fastify.svg" height="15" alt=""> Fastify</kbd> <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/drizzle.svg" height="15" alt=""> Drizzle ORM</kbd> <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/postgresql.svg" height="15" alt=""> PostgreSQL</kbd> <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/docker.svg" height="15" alt=""> Docker</kbd> <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/nginx.svg" height="15" alt=""> Nginx</kbd> <kbd><img src="https://raw.githubusercontent.com/Joaopecouto/Joaopecouto/main/assets/icons/cloudflare.svg" height="15" alt=""> Cloudflare</kbd>
 </p>
 
-<p align="center">
-  <a href="https://gerador-de-leads.alcetus.com"><img src="https://img.shields.io/badge/Demo-gerador--de--leads.alcetus.com-1F4A7D?style=flat-square&logo=googlechrome&logoColor=white" alt="Demo"></a>
-  <img src="https://img.shields.io/badge/source-private-555555?style=flat-square&logo=github&logoColor=white" alt="Source private">
-</p>
+> **PT** Case study. O código-fonte é privado; este repositório é a vitrine do projeto. Demo: [gerador-de-leads.alcetus.com](http://gerador-de-leads.alcetus.com).
+> **EN** Case study. The source code is private; this repository is the project showcase. Demo: [gerador-de-leads.alcetus.com](http://gerador-de-leads.alcetus.com).
 
-> 📌 **Estudo de caso / Case study.** O código-fonte é privado; este repositório é a vitrine do projeto. · <i>Source code is private; this repo is the showcase.</i>
+<p align="center"><img src="./screenshots/login.png" alt="Tela de login do Mappex, Gerador de Leads" width="80%"></p>
 
-![Mappex](./screenshots/login.png)
-
----
-
-## 🇧🇷 Português
+## Português
 
 ### O problema
-Pequenas empresas perdem horas procurando clientes manualmente e gerenciando conversas espalhadas no WhatsApp, sem processo nem acompanhamento.
+
+Pequenas empresas perdem horas procurando clientes à mão e gerenciando conversas espalhadas no WhatsApp, sem processo nem acompanhamento.
 
 ### A solução
-Plataforma que **encontra empresas por região**, **dispara campanhas** e centraliza o relacionamento num **CRM com WhatsApp** — do primeiro contato ao fechamento.
+
+Plataforma que encontra empresas por região, dispara campanhas e centraliza o relacionamento num CRM com WhatsApp, do primeiro contato ao fechamento.
 
 ### Funcionalidades
-- 🔎 Geração de leads por nicho + região via **Serper**, com **classificação de bairros por IA (Llama 3.3 / Groq)**
-- 💬 **CRM com pipeline Kanban** e chat em tempo real (**Meta Cloud API / Evolution**)
-- 🤖 Automações por gatilho (sem resposta em X horas, palavra-chave, etc.)
-- 📧 Campanhas de e-mail (**Resend**) e fluxos de remarketing
-- 🔐 Autenticação JWT + Google OAuth, rate-limiting e detecção de incidentes de segurança
 
-### Stack & arquitetura
-- **Front-end:** React 19, TypeScript, Vite, Tailwind CSS
-- **Back-end:** NestJS + Fastify, Drizzle ORM, PostgreSQL, filas com pg-boss
-- **Evolução de arquitetura:** v1 em **Supabase / Edge Functions (Deno)** → **backend próprio em NestJS**
-- **Infra:** Docker, Nginx, VPS, Cloudflare
-- **Escala:** 28 tabelas no banco · 8+ integrações externas
+- **Geração de leads** por nicho e região via Serper, com **bairros reais do OpenStreetMap**: o modelo de IA (Llama 3.3, via Groq) só escolhe entre eles e nunca cria bairro. Falha da IA vira alerta no Discord.
+- **CRM com pipeline Kanban** (drag-and-drop com dnd-kit) e chat em tempo real pelo WhatsApp (Meta Cloud API e Evolution API).
+- **Automações por gatilho** (sem resposta em X horas, palavra-chave e outros) montadas num editor visual de fluxos (@xyflow/react).
+- **Dashboard** com mapa interativo (Leaflet) e gráficos de indicadores; campanhas de e-mail (Resend) e fluxos de remarketing.
+- Autenticação JWT e Google OAuth, rate limiting e detecção de incidentes de segurança.
 
----
+### Stack e arquitetura
 
-## 🇺🇸 English
+- **Front-end:** React 19, TypeScript, Vite, Tailwind CSS, i18next.
+- **Back-end:** NestJS com Fastify, Drizzle ORM, PostgreSQL e filas com pg-boss.
+- **Evolução de arquitetura:** a v1 nasceu em Supabase e Edge Functions (Deno) e foi reescrita para um backend próprio em NestJS.
+- **Infra:** Docker, Nginx, VPS e Cloudflare.
+- **Escala:** 28 tabelas no banco e mais de 8 integrações externas.
 
-**The problem.** Small businesses waste hours prospecting by hand and juggling scattered WhatsApp chats with no process.
+### Qualidade
 
-**The solution.** A platform that **finds companies by region**, **runs campaigns** and centralizes everything in a **WhatsApp CRM** — from first contact to close.
+**3.768 testes automatizados** passando em 05/11/2026 (1.566 no frontend e 2.202 no backend), incluindo testes de integração com banco em memória.
 
-**Highlights**
-- 🔎 Lead generation by niche + region via **Serper**, with **AI neighborhood ranking (Llama 3.3 / Groq)**
-- 💬 **Kanban CRM** with real-time WhatsApp chat (**Meta Cloud API / Evolution**)
-- 🤖 Trigger-based automations · 📧 email campaigns (**Resend**) + remarketing
-- 🔐 JWT + Google OAuth, rate-limiting, security-incident detection
+## English
 
-**Stack:** React 19 · TypeScript · NestJS + Fastify · Drizzle · PostgreSQL · Docker · Nginx — re-architected from Supabase/Edge Functions to a dedicated NestJS backend. 28 tables, 8+ integrations.
+### The problem
 
----
+Small businesses waste hours prospecting by hand and juggling scattered WhatsApp chats with no process or follow-up.
 
-<sub>🖼️ Mais telas (dashboard, gerador, CRM Kanban, chat) em breve. · More screens coming soon.</sub>
+### The solution
+
+A platform that finds companies by region, runs campaigns and centralizes the relationship in a WhatsApp CRM, from first contact to close.
+
+### Features
+
+- **Lead generation** by niche and region through Serper, using **real OpenStreetMap neighborhoods**: the AI model (Llama 3.3 via Groq) only picks among them and never invents one. An AI failure raises a Discord alert.
+- **Kanban pipeline CRM** (drag and drop with dnd-kit) and real-time WhatsApp chat (Meta Cloud API and Evolution API).
+- **Trigger-based automations** (no reply in X hours, keywords and more) built in a visual flow editor (@xyflow/react).
+- **Dashboard** with an interactive map (Leaflet) and indicator charts; email campaigns (Resend) and remarketing flows.
+- JWT and Google OAuth authentication, rate limiting and security-incident detection.
+
+### Stack and architecture
+
+- **Front-end:** React 19, TypeScript, Vite, Tailwind CSS, i18next.
+- **Back-end:** NestJS on Fastify, Drizzle ORM, PostgreSQL and pg-boss queues.
+- **Architecture evolution:** v1 started on Supabase and Edge Functions (Deno) and was rewritten into a dedicated NestJS backend.
+- **Infra:** Docker, Nginx, VPS and Cloudflare.
+- **Scale:** 28 database tables and 8+ external integrations.
+
+### Quality
+
+**3,768 automated tests** passing on 2026-11-05 (1,566 frontend and 2,202 backend), including integration tests against an in-memory database.
+
+<sub>Contato · Contact: <a href="https://joaocouto.alcetus.com">joaocouto.alcetus.com</a> · <a href="mailto:joaopecouto77@gmail.com">joaopecouto77@gmail.com</a></sub>
