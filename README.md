@@ -59,6 +59,10 @@ flowchart LR
 
 A tela recebe nicho e região e acompanha o andamento da busca. Por trás, a requisição vira um job numa fila pg-boss, que roda no próprio PostgreSQL, sem Redis.
 
+<p align="center"><img src="./assets/screens/historico-buscas.png" alt="Histórico de buscas, com total de pesquisas, leads e cidades, e cada busca com exportação." width="92%"><br><sub>Histórico de buscas, com total de pesquisas, leads e cidades, e cada busca com exportação.</sub></p>
+
+<p align="center"><img src="./assets/screens/gerar-leads.png" alt="Tela Gerar Leads: nicho, cidade e opções da busca, com os leads capturados logo abaixo." width="92%"><br><sub>Tela Gerar Leads: nicho, cidade e opções da busca, com os leads capturados logo abaixo.</sub></p>
+
 - Um índice parcial único no banco, uma checagem prévia e a chave do job impedem mais de uma busca ativa por usuário.
 - A deduplicação é por estabelecimento, usando o identificador do lugar no Serper, com telefone e nome como reserva.
 - Um cron recolhe buscas presas e grava um código de erro, que o front traduz para PT ou EN.
@@ -68,6 +72,8 @@ A tela recebe nicho e região e acompanha o andamento da busca. Por trás, a req
 
 Os bairros vêm do OpenStreetMap (Nominatim e Overpass) e ficam em cache permanente por cidade. A IA, um modelo Llama 3.3 na Groq, só escolhe entre os nomes dessa lista. Qualquer nome fora dela é descartado.
 
+<p align="center"><img src="./assets/screens/central-de-erros.png" alt="Central de Erros: falhas da IA e do Overpass chegam agrupadas, com contagem de ocorrências." width="92%"><br><sub>Central de Erros: falhas da IA e do Overpass chegam agrupadas, com contagem de ocorrências.</sub></p>
+
 - Se o Overpass demora, a busca segue sem esperar e uma tentativa em segundo plano preenche o cache para a próxima.
 - Se a Groq falha, a busca usa os bairros reais sem curadoria ou a cidade inteira.
 - A falha vira um alerta no Discord, no máximo um por hora, e uma linha agrupada na Central de Erros.
@@ -75,6 +81,8 @@ Os bairros vêm do OpenStreetMap (Nominatim e Overpass) e ficam em cache permane
 #### Painel e mapa
 
 O painel é composto por widgets com layout salvo por usuário, e o mapa usa Leaflet.
+
+<p align="center"><img src="./assets/screens/painel-e-mapa.png" alt="Painel com KPIs do período, sparklines e o mapa de leads por cidade pesquisada (Leaflet). Mapa exibido sem tiles de fundo." width="92%"><br><sub>Painel com KPIs do período, sparklines e o mapa de leads por cidade pesquisada (Leaflet). Mapa exibido sem tiles de fundo.</sub></p>
 
 - Um único endpoint devolve um bloco por widget, e todos os hooks compartilham essa requisição.
 - O backend manda códigos, nunca frases. A tela traduz.
@@ -84,6 +92,10 @@ O painel é composto por widgets com layout salvo por usuário, e o mapa usa Lea
 
 Cada usuário pode ter várias visões de CRM, cada uma com colunas, contatos, etiquetas e números de WhatsApp. O Kanban usa dnd-kit.
 
+<p align="center"><img src="./assets/screens/crm-chat.png" alt="Chat integrado ao CRM: lista de conversas e janela de mensagens lado a lado." width="92%"><br><sub>Chat integrado ao CRM: lista de conversas e janela de mensagens lado a lado.</sub></p>
+
+<p align="center"><img src="./assets/screens/crm-kanban.png" alt="Kanban do CRM com colunas, etiquetas, modelo usado e contagem de não lidas em cada cartão." width="92%"><br><sub>Kanban do CRM com colunas, etiquetas, modelo usado e contagem de não lidas em cada cartão.</sub></p>
+
 - Entrada por importação de leads, contatos manuais e webhook.
 - Chat integrado, com mídia e atualização em tempo real por SSE.
 - Webhook de saída e convite por e-mail.
@@ -91,6 +103,8 @@ Cada usuário pode ter várias visões de CRM, cada uma com colunas, contatos, e
 #### WhatsApp
 
 Há dois canais: a Evolution API (não oficial) e a Meta Cloud API (oficial).
+
+<p align="center"><img src="./assets/screens/whatsapp-conexoes.png" alt="Gerenciamento de números de WhatsApp e dos CRMs ligados a cada um." width="92%"><br><sub>Gerenciamento de números de WhatsApp e dos CRMs ligados a cada um.</sub></p>
 
 - Eventos de entrada alimentam o histórico e movem contatos.
 - Palavras de descadastro encerram o envio para aquele contato.
@@ -100,6 +114,10 @@ Há dois canais: a Evolution API (não oficial) e a Meta Cloud API (oficial).
 
 O wizard pergunta o canal logo no início, porque ele define o resto do fluxo. No canal Mappex a mensagem é texto livre com variáveis por `@`. No oficial, o texto vira um modelo aprovado pela Meta, e o `@nome` é compilado para variável posicional.
 
+<p align="center"><img src="./assets/screens/fila-automatica.png" alt="Fila automática: próximo envio, janela de horário, ritmo, fila por pesquisa e contagem de enviados." width="92%"><br><sub>Fila automática: próximo envio, janela de horário, ritmo, fila por pesquisa e contagem de enviados.</sub></p>
+
+<p align="center"><img src="./assets/screens/campanhas.png" alt="Lista de campanhas com status, envios, listas e último disparo." width="92%"><br><sub>Lista de campanhas com status, envios, listas e último disparo.</sub></p>
+
 - Ritmo configurável pelo usuário, com teto de 100 por hora e 1.000 por dia.
 - Rodízio de 2 a 3 mensagens.
 - O disparo roda no servidor, por cron, com reserva registrada antes da ação.
@@ -108,9 +126,15 @@ O wizard pergunta o canal logo no início, porque ele define o resto do fluxo. N
 
 Regras por coluna, executadas no servidor, sem navegador aberto. Gatilhos: entrar na coluna, tempo parado, resposta recebida, palavra-chave e tempo sem resposta. Ações: enviar mensagem, mover ou os dois. Mover sozinho não passa pelas janelas de horário.
 
+<p align="center"><img src="./assets/screens/automacoes.png" alt="Automações do funil: regras por coluna, com gatilho, ação e quantas vezes cada uma disparou." width="92%"><br><sub>Automações do funil: regras por coluna, com gatilho, ação e quantas vezes cada uma disparou.</sub></p>
+
 #### Administração
 
 Gestão de usuários, personificação com auditoria, métricas, central de erros, mensagens de suporte, incidentes de segurança com prazo de comunicação calculado na leitura, exclusão de conta com lembrete e e-mails de remarketing por uso da cota.
+
+<p align="center"><img src="./assets/screens/admin-incidentes.png" alt="Incidentes de segurança com severidade, status e contagem por nível." width="92%"><br><sub>Incidentes de segurança com severidade, status e contagem por nível.</sub></p>
+
+<p align="center"><img src="./assets/screens/admin-usuarios.png" alt="Gerenciamento de usuários: plano, status, cota de leads e ações como personificar." width="92%"><br><sub>Gerenciamento de usuários: plano, status, cota de leads e ações como personificar.</sub></p>
 
 ### Arquitetura
 
@@ -219,6 +243,10 @@ flowchart LR
 
 The screen takes a niche and region and follows the search progress. Behind it, the request becomes a job in a pg-boss queue, which runs inside PostgreSQL itself, with no Redis.
 
+<p align="center"><img src="./assets/screens/historico-buscas.png" alt="Search history, with totals for searches, leads and cities, and an export button on each search." width="92%"><br><sub>Search history, with totals for searches, leads and cities, and an export button on each search.</sub></p>
+
+<p align="center"><img src="./assets/screens/gerar-leads.png" alt="Generate Leads screen: niche, city and search options, with the captured leads right below." width="92%"><br><sub>Generate Leads screen: niche, city and search options, with the captured leads right below.</sub></p>
+
 - A partial unique index in the database, a pre-check and the job key keep each user to one active search.
 - Deduplication is per business, using the Serper place identifier, with phone and name as fallbacks.
 - A cron collects stuck searches and records an error code, which the front end translates to PT or EN.
@@ -228,6 +256,8 @@ The screen takes a niche and region and follows the search progress. Behind it, 
 
 Neighborhoods come from OpenStreetMap (Nominatim and Overpass) and are cached permanently per city. The AI, a Llama 3.3 model on Groq, only chooses from that list. Any name outside it is discarded.
 
+<p align="center"><img src="./assets/screens/central-de-erros.png" alt="Error center: AI and Overpass failures show up grouped, with an occurrence count." width="92%"><br><sub>Error center: AI and Overpass failures show up grouped, with an occurrence count.</sub></p>
+
 - If Overpass is slow, the search moves on without waiting and a background attempt fills the cache for the next one.
 - If Groq fails, the search uses the real neighborhoods without curation, or the whole city.
 - The failure becomes a Discord alert, at most one per hour, plus a grouped row in the error center.
@@ -235,6 +265,8 @@ Neighborhoods come from OpenStreetMap (Nominatim and Overpass) and are cached pe
 #### Dashboard and map
 
 The dashboard is made of widgets with a per-user saved layout, and the map uses Leaflet.
+
+<p align="center"><img src="./assets/screens/painel-e-mapa.png" alt="Dashboard with period KPIs, sparklines and the lead map by searched city (Leaflet). Map shown without background tiles." width="92%"><br><sub>Dashboard with period KPIs, sparklines and the lead map by searched city (Leaflet). Map shown without background tiles.</sub></p>
 
 - One endpoint returns one block per widget, and all hooks share that request.
 - The backend sends codes, never sentences. The UI translates.
@@ -244,6 +276,10 @@ The dashboard is made of widgets with a per-user saved layout, and the map uses 
 
 Each user can have several CRM views, each with its own columns, contacts, tags and WhatsApp numbers. The Kanban uses dnd-kit.
 
+<p align="center"><img src="./assets/screens/crm-chat.png" alt="Chat built into the CRM: conversation list and message window side by side." width="92%"><br><sub>Chat built into the CRM: conversation list and message window side by side.</sub></p>
+
+<p align="center"><img src="./assets/screens/crm-kanban.png" alt="CRM Kanban with columns, tags, template used and unread counts on each card." width="92%"><br><sub>CRM Kanban with columns, tags, template used and unread counts on each card.</sub></p>
+
 - Contacts come from lead import, manual entry and webhook.
 - Built-in chat with media and real-time updates over SSE.
 - Outgoing webhook and email invites.
@@ -251,6 +287,8 @@ Each user can have several CRM views, each with its own columns, contacts, tags 
 #### WhatsApp
 
 There are two channels: Evolution API (unofficial) and Meta Cloud API (official).
+
+<p align="center"><img src="./assets/screens/whatsapp-conexoes.png" alt="Management of WhatsApp numbers and the CRMs linked to each one." width="92%"><br><sub>Management of WhatsApp numbers and the CRMs linked to each one.</sub></p>
 
 - Inbound events feed the history and move contacts.
 - Opt-out keywords stop sending to that contact.
@@ -260,6 +298,10 @@ There are two channels: Evolution API (unofficial) and Meta Cloud API (official)
 
 The wizard asks for the channel up front, because it decides the rest of the flow. On the Mappex channel the message is free text with `@` variables. On the official channel the text becomes a Meta-approved template, and `@name` is compiled to a positional variable.
 
+<p align="center"><img src="./assets/screens/fila-automatica.png" alt="Auto-send queue: next send, time window, pace, per-search queue and sent count." width="92%"><br><sub>Auto-send queue: next send, time window, pace, per-search queue and sent count.</sub></p>
+
+<p align="center"><img src="./assets/screens/campanhas.png" alt="Campaign list with status, sent count, lists and last dispatch." width="92%"><br><sub>Campaign list with status, sent count, lists and last dispatch.</sub></p>
+
 - Pace set by the user, capped at 100 per hour and 1,000 per day.
 - Rotation of 2 to 3 messages.
 - Sending runs on the server, by cron, with a claim recorded before each action.
@@ -268,9 +310,15 @@ The wizard asks for the channel up front, because it decides the rest of the flo
 
 Per-column rules, run on the server with no browser open. Triggers: enter a column, time in column, reply received, keyword and time without reply. Actions: send a message, move, or both. A plain move skips the time windows.
 
+<p align="center"><img src="./assets/screens/automacoes.png" alt="Funnel automations: per-column rules with trigger, action and how many times each fired." width="92%"><br><sub>Funnel automations: per-column rules with trigger, action and how many times each fired.</sub></p>
+
 #### Administration
 
 User management, audited impersonation, metrics, an error center, support messages, security incidents with a notification deadline computed at read time, account deletion with a reminder, and remarketing emails based on quota usage.
+
+<p align="center"><img src="./assets/screens/admin-incidentes.png" alt="Security incidents with severity, status and count per level." width="92%"><br><sub>Security incidents with severity, status and count per level.</sub></p>
+
+<p align="center"><img src="./assets/screens/admin-usuarios.png" alt="User management: plan, status, lead quota and actions such as impersonation." width="92%"><br><sub>User management: plan, status, lead quota and actions such as impersonation.</sub></p>
 
 ### Architecture
 
