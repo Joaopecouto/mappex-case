@@ -22,9 +22,9 @@
 
 ### Visão geral
 
-O Mappex é uma plataforma de geração de leads B2B com CRM e disparo de mensagens por WhatsApp. O usuário informa um nicho (por exemplo, "clínica odontológica") e uma cidade, e o sistema devolve estabelecimentos reais com telefone, endereço, nota e posição no mapa. Esses contatos entram numa base própria, passam por verificação de WhatsApp e seguem para um CRM em Kanban, onde viram conversa, campanha ou automação.
+O Mappex é uma plataforma de geração de leads B2B com CRM e disparo de mensagens por WhatsApp. O usuário informa um nicho (por exemplo, "clínica odontológica") e uma cidade, e o sistema devolve estabelecimentos reais com telefone, endereço, nota e posição no mapa. Esses contatos entram numa base própria, passam por uma verificação de WhatsApp e seguem para um CRM em Kanban, onde viram conversa, campanha ou automação.
 
-O produto é feito para quem prospecta empresas locais: agências, consultores, equipes comerciais pequenas. O problema que resolve é a distância entre achar um contato e conversar com ele. Normalmente isso passa por planilha, ferramenta de scraping, aplicativo de mensagem e controle manual do funil. Aqui tudo roda no mesmo lugar, com o mesmo cadastro e o mesmo histórico.
+O produto é feito para quem prospecta empresas locais: agências, consultores, equipes comerciais pequenas. O problema que resolve é a distância entre achar um contato e conversar com ele. Normalmente isso passa por uma planilha, uma ferramenta de scraping, um aplicativo de mensagem e o controle manual do funil. Aqui tudo roda no mesmo lugar, com o mesmo cadastro e o mesmo histórico.
 
 O código é privado. Este README descreve o que o produto faz e como foi construído.
 
