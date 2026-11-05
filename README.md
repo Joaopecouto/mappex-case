@@ -93,9 +93,9 @@ Cada usuário pode ter várias visões de CRM, cada uma com colunas, contatos, e
 
 <p align="center"><img src="./assets/screens/crm-kanban.png" alt="Kanban do CRM com colunas, etiquetas, modelo usado e contagem de não lidas em cada cartão." width="92%"><br><sub>Kanban do CRM com colunas, etiquetas, modelo usado e contagem de não lidas em cada cartão.</sub></p>
 
-- Entrada por importação de leads, contatos manuais e webhook.
-- Chat integrado, com mídia e atualização em tempo real por SSE.
-- Webhook de saída e convite por e-mail.
+- Os contatos entram por importação de leads, cadastro manual e webhook.
+- O chat é integrado, com mídia e atualização em tempo real por SSE.
+- Há ainda webhook de saída e convite por e-mail.
 
 #### WhatsApp
 
@@ -115,19 +115,19 @@ O wizard pergunta o canal logo no início, porque ele define o resto do fluxo. N
 
 <p align="center"><img src="./assets/screens/campanhas.png" alt="Lista de campanhas com status, envios, listas e último disparo." width="92%"><br><sub>Lista de campanhas com status, envios, listas e último disparo.</sub></p>
 
-- Ritmo configurável pelo usuário, com teto de 100 por hora e 1.000 por dia.
-- Rodízio de 2 a 3 mensagens.
+- O ritmo é configurável pelo usuário, com teto de 100 por hora e 1.000 por dia.
+- O rodízio usa de 2 a 3 mensagens.
 - O disparo roda no servidor, por cron, com reserva registrada antes da ação.
 
 #### Automações
 
-Regras por coluna, executadas no servidor, sem navegador aberto. Gatilhos: entrar na coluna, tempo parado, resposta recebida, palavra-chave e tempo sem resposta. Ações: enviar mensagem, mover ou os dois. Mover sozinho não passa pelas janelas de horário.
+As regras são por coluna e rodam no servidor, sem navegador aberto. Os gatilhos são entrar na coluna, tempo parado, resposta recebida, palavra-chave e tempo sem resposta. As ações são enviar mensagem, mover ou os dois. Mover sozinho não passa pelas janelas de horário.
 
 <p align="center"><img src="./assets/screens/automacoes.png" alt="Automações do funil: regras por coluna, com gatilho, ação e quantas vezes cada uma disparou." width="92%"><br><sub>Automações do funil: regras por coluna, com gatilho, ação e quantas vezes cada uma disparou.</sub></p>
 
 #### Administração
 
-Gestão de usuários, personificação com auditoria, métricas, central de erros, mensagens de suporte, incidentes de segurança com prazo de comunicação calculado na leitura, exclusão de conta com lembrete e e-mails de remarketing por uso da cota.
+A área de administração reúne gestão de usuários, personificação com auditoria, métricas, central de erros, mensagens de suporte, incidentes de segurança com prazo de comunicação calculado na leitura, exclusão de conta com lembrete e e-mails de remarketing por uso da cota.
 
 <p align="center"><img src="./assets/screens/admin-incidentes.png" alt="Incidentes de segurança com severidade, status e contagem por nível." width="92%"><br><sub>Incidentes de segurança com severidade, status e contagem por nível.</sub></p>
 
@@ -154,7 +154,7 @@ flowchart TB
   E --> API
 ```
 
-Modelo de dados, com 28 tabelas. Resumo:
+O modelo de dados tem 28 tabelas. Em resumo:
 
 - **Conta:** usuários, identidades de login (e-mail ou Google), sessões, assinaturas de plano, trilha de auditoria.
 - **Leads:** buscas, leads (um por estabelecimento, ligado à busca e ao usuário), cache e consumo do Serper, bairros por cidade.
@@ -178,16 +178,16 @@ Modelo de dados, com 28 tabelas. Resumo:
 
 ### Qualidade e segurança
 
-- 3.768 testes passando em 05/11/2026: 1.566 no front e 2.202 no backend.
+- Passam 3.768 testes em 05/11/2026: 1.566 no front e 2.202 no backend.
 - Os testes de backend rodam contra pglite com as migrations reais (76 migrations aditivas e idempotentes).
-- Gate de entrega: typecheck nos dois projetos, testes nos dois e build do front.
-- Testes de paridade i18n entre PT e EN e de coerência entre front e backend nos tokens de mensagem.
-- Texto legal travado por hash: mudar o conteúdo sem subir a versão quebra o teste.
-- Rate limiting global por IP, com limites mais apertados nas rotas de autenticação.
-- Senhas em argon2id, com atualização automática de hashes antigos no login. Refresh token opaco guardado só como hash. Login Google, captcha Turnstile e bloqueio de e-mail descartável.
-- Personificação de admin sem refresh token.
-- Trava do plano Free após 7 dias: nega por padrão qualquer escrita, e libera só o que está marcado.
-- Auditoria com e-mail em hash e IP em faixa.
+- O gate de entrega exige typecheck nos dois projetos, testes nos dois e build do front.
+- Há testes de paridade i18n entre PT e EN e de coerência entre front e backend nos tokens de mensagem.
+- O texto legal é travado por hash: mudar o conteúdo sem subir a versão quebra o teste.
+- O rate limiting é global por IP, com limites mais apertados nas rotas de autenticação.
+- As senhas usam argon2id, com atualização automática de hashes antigos no login. O refresh token é opaco e guardado só como hash. O sistema tem login Google, captcha Turnstile e bloqueio de e-mail descartável.
+- A personificação de admin não usa refresh token.
+- A trava do plano Free após 7 dias nega por padrão qualquer escrita e libera só o que está marcado.
+- A auditoria guarda o e-mail em hash e o IP em faixa.
 
 ### Limites conhecidos
 

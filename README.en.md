@@ -94,8 +94,8 @@ Each user can have several CRM views, each with its own columns, contacts, tags 
 <p align="center"><img src="./assets/screens/crm-kanban.png" alt="CRM Kanban with columns, tags, template used and unread counts on each card." width="92%"><br><sub>CRM Kanban with columns, tags, template used and unread counts on each card.</sub></p>
 
 - Contacts come from lead import, manual entry and webhook.
-- Built-in chat with media and real-time updates over SSE.
-- Outgoing webhook and email invites.
+- The chat is built in, with media and real-time updates over SSE.
+- There are also outgoing webhooks and email invites.
 
 #### WhatsApp
 
@@ -115,19 +115,19 @@ The wizard asks for the channel up front, because it decides the rest of the flo
 
 <p align="center"><img src="./assets/screens/campanhas.png" alt="Campaign list with status, sent count, lists and last dispatch." width="92%"><br><sub>Campaign list with status, sent count, lists and last dispatch.</sub></p>
 
-- Pace set by the user, capped at 100 per hour and 1,000 per day.
-- Rotation of 2 to 3 messages.
+- The user sets the pace, capped at 100 per hour and 1,000 per day.
+- The rotation uses 2 to 3 messages.
 - Sending runs on the server, by cron, with a claim recorded before each action.
 
 #### Automations
 
-Per-column rules, run on the server with no browser open. Triggers: enter a column, time in column, reply received, keyword and time without reply. Actions: send a message, move, or both. A plain move skips the time windows.
+Rules are per column and run on the server with no browser open. The triggers are entering a column, time in column, reply received, keyword and time without reply. The actions are sending a message, moving, or both. A plain move skips the time windows.
 
 <p align="center"><img src="./assets/screens/automacoes.png" alt="Funnel automations: per-column rules with trigger, action and how many times each fired." width="92%"><br><sub>Funnel automations: per-column rules with trigger, action and how many times each fired.</sub></p>
 
 #### Administration
 
-User management, audited impersonation, metrics, an error center, support messages, security incidents with a notification deadline computed at read time, account deletion with a reminder, and remarketing emails based on quota usage.
+The admin area covers user management, audited impersonation, metrics, an error center, support messages, security incidents with a notification deadline computed at read time, account deletion with a reminder, and remarketing emails based on quota usage.
 
 <p align="center"><img src="./assets/screens/admin-incidentes.png" alt="Security incidents with severity, status and count per level." width="92%"><br><sub>Security incidents with severity, status and count per level.</sub></p>
 
@@ -154,7 +154,7 @@ flowchart TB
   E --> API
 ```
 
-Data model, 28 tables. Summary:
+The data model has 28 tables. In short:
 
 - **Account:** users, login identities (email or Google), sessions, plan subscriptions, audit trail.
 - **Leads:** searches, leads (one per business, tied to the search and the user), Serper cache and usage, neighborhoods per city.
@@ -178,20 +178,20 @@ Data model, 28 tables. Summary:
 
 ### Quality and security
 
-- 3,768 tests passing on 2026-11-05: 1,566 front end and 2,202 backend.
+- 3,768 tests pass as of 2026-11-05: 1,566 front end and 2,202 backend.
 - Backend tests run against pglite with the real migrations (76 additive, idempotent migrations).
-- Delivery gate: typecheck on both projects, tests on both, and the front-end build.
-- Parity tests for PT and EN i18n, and a front-to-backend consistency test for message tokens.
+- The delivery gate requires typecheck on both projects, tests on both, and the front-end build.
+- There are parity tests for PT and EN i18n, and a front-to-backend consistency test for message tokens.
 - Legal text is locked by hash: changing the content without bumping the version breaks the test.
-- Global per-IP rate limiting, with tighter limits on authentication routes.
-- Passwords use argon2id, with automatic upgrade of old hashes on login. Opaque refresh tokens stored only as a hash. Google login, Turnstile captcha and disposable email blocking.
+- Rate limiting is global per IP, with tighter limits on authentication routes.
+- Passwords use argon2id, with automatic upgrade of old hashes on login. Refresh tokens are opaque and stored only as a hash. The system also has Google login, Turnstile captcha and disposable email blocking.
 - Admin impersonation has no refresh token.
 - The Free plan lock after 7 days denies any write by default and allows only what is marked.
-- Audit trail with hashed email and IP truncated to a range.
+- The audit trail keeps a hashed email and an IP truncated to a range.
 
 ### Known limits
 
-- The public Overpass service is unstable. Hence the cache, the wait budget and the background retry.
+- The public Overpass service is unstable. That is why there is a cache, a wait budget and a background retry.
 - Without the Groq key, search reach drops, but it keeps working.
 - Migrations do not run at boot. They are applied before deploy.
 - Meta-approved templates have rules the documentation does not cover, such as the body not being allowed to start or end with a variable.
